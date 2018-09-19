@@ -6,7 +6,7 @@ register = template.Library()
 @register.tag
 def google_analytics(parser, token):
     return AnalyticsNode()
-    
+
 class AnalyticsNode(template.Node):
     def __init__(self):
         self.site = Site.objects.get_current()
@@ -17,9 +17,9 @@ class AnalyticsNode(template.Node):
     def render(self, context):
         if self.web_property_id:
             analytic_template = template.loader.get_template('google_analytics/analytics.html')
-            context = template.Context({
-                               'web_property_id': self.web_property_id,
-                               })
+            context = {
+                'web_property_id': self.web_property_id,
+            }
             return analytic_template.render(context)
         else:
             return ''
